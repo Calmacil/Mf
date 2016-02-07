@@ -1,0 +1,21 @@
+{
+  "name": "calmacil/mf",
+  "authors": [
+    {
+      "name": "Calmacil",
+      "email": "thomas.lenoel@gmail.com"
+    }
+  ],
+  "description": "A PHP microframework made from scratch. Don't look for the coffee pot.",
+  "minimun-stability": "dev",
+  "require": {
+    "twig/twig": "~1.0",
+    "maximebf/debugbar": "1.*",
+    "monolog/monolog": "1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Mf\\": "src"
+    }
+  }
+}
