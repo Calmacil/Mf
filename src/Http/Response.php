@@ -1,12 +1,12 @@
 <?php
 /**
  * @author Calmacil <thomas.lenoel@gmail.com>
- * @package \Mf\Core
+ * @package \Mf\Http
  * @copyright Calmacil 2016
  * @licence MIT
  */
 
-namespace Mf\Core;
+namespace Mf\Http;
 
 
 use Mf\Config;

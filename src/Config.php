@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Calmacil <thomas.lenoel@gmail.com>
- * @package \Mf\Core
+ * @package \Mf\Http
  * @copyright Calmacil 2016
  * @licence MIT
  */
@@ -14,7 +14,7 @@ class Config
     /**
      * @var string
      */
-    private $file;
+    private $dir;
 
     /**
      * @var array
@@ -22,29 +22,38 @@ class Config
     private static $settings;
 
     /**
+     * @var Config
+     */
+    private static $instance;
+
+    /**
      * Config constructor.
      * @param string $file
      */
-    public function __construct($file)
+    public function __construct($dir)
     {
-        $this->file = $file;
-        $this->load();
+        $this->dir = $dir;
+    }
+
+    public static function init($dir) {
+        self::$instance = new Config($dir);
     }
 
     /**
      * @throws \ErrorException
+     * @var string $scope
      * @return bool
      */
-    private function load()
+    public function load($scope)
     {
-        $file = file_get_contents($this->file);
+        $file = file_get_contents($this->dir . '/' . $scope . '.json');
         if (!($file)) {
             throw new \ErrorException("Impossible to read config file");
         }
 
-        self::$settings = json_decode($file);
+        self::$settings[$scope] = json_decode($file);
 
-        if (!self::$settings) {
+        if (!self::$settings[$scope]) {
             $e = json_last_error_msg();
             throw new \ErrorException("Impossible to load config file:\n$e");
         }
@@ -55,10 +64,11 @@ class Config
      * @param string $key
      * @return mixed
      */
-    public static function get($key=null)
+    public static function get($scope)
     {
-        if ($key)
-            return self::$settings[$key];
-        return self::$settings;
+        if (!isset(self::$settings[$scope])) {
+            self::$instance->load($scope);
+        }
+        return self::$settings[$scope];
     }
 }

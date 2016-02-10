@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Calmacil <thomas.lenoel@gmail.com>
- * @package \Mf\Core
+ * @package \Mf\Http
  * @copyright Calmacil 2016
  * @licence MIT
  */
@@ -9,6 +9,7 @@
 namespace Mf\Routing;
 
 
+use Mf\Config;
 use Psr\Log\InvalidArgumentException;
 
 class Router
@@ -39,6 +40,24 @@ class Router
             throw new InvalidArgumentException("The given routes file does not exist");
         }
 
+        $routes = function_exists('get_object_vars') ?
+            get_object_vars(Config::get('routing')) :
+            $this->readJson($routes_file);
+
+        foreach ($routes as $route_name => $route_settings) {
+            $this->routes[$route_name] = new Route($route_name, $route_settings);
+        }
+    }
+
+    /**
+     * fallback in case of get_object_vars would be disabled.
+     * Ideally, not used
+     *
+     * @param $routes_file
+     * @return mixed
+     */
+    private function readJson($routes_file)
+    {
         $json = file_get_contents($routes_file);
         $routes = json_decode($json, true);
 
@@ -46,9 +65,7 @@ class Router
             print_r(json_last_error_msg());
         }
 
-        foreach ($routes as $route_name => $route_settings) {
-            $this->routes[$route_name] = new Route($route_name, $route_settings);
-        }
+        return $routes;
     }
 
     /**

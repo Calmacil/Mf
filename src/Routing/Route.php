@@ -1,7 +1,7 @@
 <?php
 /**
  * @author calmacil <thomas.lenoel@gmail.com>
- * @package \Mf\Core
+ * @package \Mf\Http
  * @copyright Calmacil 2016
  * @licence MIT
  */

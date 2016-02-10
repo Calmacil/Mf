@@ -1,12 +1,12 @@
 <?php
 /**
  * @author calmacil <thomas.lenoel@gmail.com>
- * @package \Mf\Core
+ * @package \Mf\Http
  * @copyright Calmacil 2016
  * @licence MIT
  */
 
-namespace Mf\Core;
+namespace Mf\Http;
 
 
 use MongoDB\Driver\Exception\Exception;
@@ -20,7 +20,7 @@ class Request
     private $uri;
 
     /**
-     * @var Mf\Routing\Route
+     * @var \Mf\Routing\Route
      */
     private $route;
 
