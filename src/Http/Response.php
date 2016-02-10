@@ -89,7 +89,7 @@ class Response
     /**
      * Renders output as HTML
      */
-    public function render()
+    public function render($content_type = self::TYPE_HTML)
     {
         if (Config::get('debug')) {
             // TODO: implements debugbar here
@@ -100,22 +100,7 @@ class Response
         ob_clean();
         ob_start();
         header("HTTP/1.1 " . $this->status);
-        header("Content-Type: " . self::TYPE_HTML);
-        echo $content;
-        ob_end_flush();
-    }
-
-    /**
-     * Renders output as JSON
-     */
-    public function renderJson()
-    {
-        $content = $this->environment->render($this->template, $this->template_vars);
-
-        ob_clean();
-        ob_start();
-        header("HTTP/1.1 " . $this->status);
-        header("Content-Type: " . self::TYPE_JSON);
+        header("Content-Type: " . $content_type);
         echo $content;
         ob_end_flush();
     }

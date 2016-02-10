@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * @author calmacil
- *
- * This file is a part of the Mf project. All rights reserved.
+ * @author Calmacil <thomas.lenoel@gmail.com>
+ * @package \Mf\Http
+ * @copyright Calmacil 2016
+ * @licence MIT
  */
 
 namespace Mf;
@@ -24,9 +24,16 @@ class Controller
      * Controller constructor.
      * @param Application $app
      */
+
+    /**
+     * @var \stdClass
+     */
+    protected $conf;
+
     public function __construct($app)
     {
         $this->app = $app;
+        $this->conf = Config::get($this->app->cfile);
     }
 
     /**
