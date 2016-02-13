@@ -59,7 +59,7 @@ class Controller
      * @param string $param
      * @return mixed
      */
-    public function get($param)
+    protected function get($param)
     {
         return $this->app->getRequest()->get($param);
     }
@@ -68,7 +68,7 @@ class Controller
      * @param string $param
      * @return mixed
      */
-    public function post($param)
+    protected function post($param)
     {
         return $this->app->getRequest()->post($param);
     }
@@ -76,8 +76,98 @@ class Controller
     /**
      * @todo implement
      */
-    public function display404()
+    protected function display404()
     {
 
+    }
+
+    /**
+     * Detailed debug information
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function debug($msg, $context=array())
+    {
+        $this->app->appLogger()->addDebug($msg, $context);
+    }
+
+    /**
+     * Interesting events. Example: user logs, SQL logs.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function info($msg, $context=array())
+    {
+        $this->app->appLogger()->addInfo($msg, $context);
+    }
+
+    /**
+     * Normal but significant events.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function notice($msg, $context=array())
+    {
+        $this->app->appLogger()->addNotice($msg, $context);
+    }
+
+    /**
+     * Exceptional occurrences that are not errors. Examples: use of deprecated APIs, poor use of an API, undesirable
+     * things that are not necessarily wrong.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function warning($msg, $context=array())
+    {
+        $this->app->appLogger()->addWarning($msg, $context);
+    }
+
+    /**
+     * Runtime errors that do not require immediate action but should typically be logged and monitored.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function error($msg, $context=array())
+    {
+        $this->app->appLogger()->addError($msg, $context);
+    }
+
+    /**
+     * Critical conditions. Example: Application component unavailable, unexpected exception.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function critical($msg, $context=array())
+    {
+        $this->app->appLogger()->addCritical($msg, $context);
+    }
+
+    /**
+     * Action must be taken immediately. Example: entire website down, database unavailable, etc. This should trigger
+     * the SMS alert and wake you up.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function alert($msg, $context=array())
+    {
+        $this->app->appLogger()->addAlert($msg, $context);
+    }
+
+    /**
+     * Emergency: system is unusable.
+     *
+     * @param string $msg
+     * @param array $context
+     */
+    protected function emergency($msg, $context=array())
+    {
+        $this->app->appLogger()->addEmergency($msg, $context);
     }
 }

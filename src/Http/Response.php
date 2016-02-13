@@ -9,6 +9,7 @@
 namespace Mf\Http;
 
 
+use Mf\Application;
 use Mf\Config;
 use Mf\Routing\Router;
 
@@ -20,6 +21,11 @@ class Response
 
     const TYPE_HTML = "text/html";
     const TYPE_JSON = "text/json";
+
+    /**
+     * @var Application
+     */
+    private $app;
 
     /**
      * @var \Twig_Loader_Filesystem
@@ -47,9 +53,11 @@ class Response
 
     /**
      * Response constructor. Inits the TWIG environment.
+     * @param Application $app
      */
-    public function __construct()
+    public function __construct($app)
     {
+        $this->app = $app;
         $PATHS = Config::get("path");
 
         $this->loader = new \Twig_Loader_Filesystem(ROOT.$PATHS->templates);
@@ -64,6 +72,7 @@ class Response
             $func = new \Twig_SimpleFunction($func_name, array("\\Mf\\Twig\\Functions", $func_name));
             $this->environment->addFunction($func);
         }
+        $this->app->coreLogger()->notice('Response initialized.');
     }
 
     /**
@@ -85,6 +94,8 @@ class Response
         } else {
             $this->template_vars[$key] = $value;
         }
+        $this->app->coreLogger()->info("Assigning value {val} to key {key} for display.",
+            ['key'=>$key, 'val'=>print_r($value, true)]);
     }
 
     /**
@@ -92,11 +103,12 @@ class Response
      */
     public function render($content_type = self::TYPE_HTML)
     {
-        if (Config::get('debug')) {
-            // TODO: implements debugbar here
-        }
-
         $content = $this->environment->render($this->template, $this->template_vars);
+
+        $this->app->coreLogger()->notice("Rendering template {tpl} as {ctype} with code: [{code}]", [
+            'tpl' => $this->template,
+            'ctype' => $content_type,
+            'code' => $this->status]);
 
         ob_clean();
         ob_start();
@@ -116,6 +128,8 @@ class Response
     public function redirect($route, $options = array())
     {
         $url = Router::getInstance()->generateRoute($route, $options);
+
+        $this->app->coreLogger()->notice("Redirecting current request to route {route}", ['route' => $route]);
 
         ob_clean();
         ob_start();

@@ -9,8 +9,8 @@
 namespace Mf\Http;
 
 
+use Mf\Application;
 use MongoDB\Driver\Exception\Exception;
-use Psr\Log\InvalidArgumentException;
 
 class Request
 {
@@ -30,15 +30,24 @@ class Request
     private $post_params = array();
 
     /**
-     * Request constructor
+     * @var Application
      */
-    public function __construct($uri)
+    private $app;
+
+    /**
+     * Request constructor
+     * @param Application $app;
+     *
+     */
+    public function __construct($app, $uri)
     {
+        $this->app = $app;
         $this->uri = $uri;
 
         foreach ($_POST as $key => $value) {
             $this->post_params[$key] = addslashes(htmlspecialchars(trim($value)));
         }
+        $this->app->coreLogger()->addNotice("Request initialized.");
     }
 
     /**
@@ -47,9 +56,13 @@ class Request
      */
     public function proceed()
     {
+        $this->app->coreLogger()->addInfo("Proceeding with Request treatment.");
         $this->route = Router::getInstance()->search($this->uri);
         if (!$this->route) {
-            throw new \Exception("Impossible to create the Route object for route {$this->route}");
+            $this->app->coreLogger()
+                ->addCritical("Impossible to pursue proceeding: route unavailable for query string \"{query}\".",
+                    array('query' => $this->uri));
+            throw new \Exception("Impossible to create the Route object for query string {$this->uri}");
         }
     }
 
@@ -60,7 +73,8 @@ class Request
     public function post($key)
     {
         if (!array_key_exists($key, $this->post_params)) {
-            throw new InvalidArgumentException("Parameter $key does not exist in the request POST parameters");
+            //throw new InvalidArgumentException("Parameter $key does not exist in the request POST parameters");
+            $this->app->coreLogger()->warn("Parameter {key} not found if _POST request params.", ['key' => $key]);
         }
         return $this->post_params[$key];
     }
@@ -71,7 +85,10 @@ class Request
      */
     public function get($key)
     {
-        return $this->route->getHttpParams($key);
+        if (($val = $this->route->getHttpParams()) === false) {
+            $this->app->coreLogger()->warn("Parameter {key} not found in _GET request params.", ['key' => $key]);
+        }
+        return $val;
     }
 
     /**
