@@ -10,6 +10,7 @@ namespace Mf\Http;
 
 
 use Mf\Config;
+use Mf\Routing\Router;
 
 class Response
 {
@@ -103,5 +104,24 @@ class Response
         header("Content-Type: " . $content_type);
         echo $content;
         ob_end_flush();
+    }
+
+    /**
+     * Redirects the request to the given route. Internal redirect only.
+     *
+     * @param string $route
+     * @param array $options
+     * @return bool
+     */
+    public function redirect($route, $options = array())
+    {
+        $url = Router::getInstance()->generateRoute($route, $options);
+
+        ob_clean();
+        ob_start();
+        header("HTTP/1.1 " . self::STATUS_FOUND);
+        header("Location : " . $url);
+        ob_end_flush();
+        return true;
     }
 }
