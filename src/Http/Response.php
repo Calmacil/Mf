@@ -138,4 +138,31 @@ class Response
         ob_end_flush();
         return true;
     }
+
+    public function display404($template = null)
+    {
+        if ($template) {
+            $content = $this->environment->render($template);
+        } else {
+            $content = <<<EOC
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="Content-Type" content="text/html"/>
+        <meta charset="utf-8"/>
+        <title>Page not found!</title>
+    </head>
+    <body>
+        <p>This is not the page you are looking for!</p>
+    </body>
+</html>
+EOC;
+            ob_clean();
+            ob_start();
+            header("HTTP/1.1 " . self::STATUS_NOT_FOUND);
+            echo $content;
+            ob_end_flush();
+            return true;
+        }
+    }
 }

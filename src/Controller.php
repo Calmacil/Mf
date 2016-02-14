@@ -74,11 +74,15 @@ class Controller
     }
 
     /**
-     * @todo implement
+     * send a 404 http code
+     * @return bool
      */
     protected function display404()
     {
-
+        if(isset($this->conf->page404)) {
+            return $this->app->getResponse()->display404($this->conf->page404);
+        }
+        return $this->app->getResponse()->display404();
     }
 
     /**
