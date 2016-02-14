@@ -1,0 +1,14 @@
+{
+  "project_name": "myproject",
+  "debug": true,
+  "log": {
+    "logfile": "logs/app.log",
+    "loglevel": "debug"
+  },
+  "paths": {
+    "cache_dir": "cache",
+    "twig_cache": "cache/twig",
+    "routing_file": "routing"
+  },
+  "page404": null
+}

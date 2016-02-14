@@ -1,0 +1,10 @@
+{
+  "master": {
+    "driver":   "mysql",
+    "host":     "localhost",
+    "post":     "3306",
+    "dbname":   "myproject",
+    "user":     "johndoe",
+    "password": "*******"
+  }
+}

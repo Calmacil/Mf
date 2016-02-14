@@ -1,0 +1,7 @@
+{
+  "home": {
+    "pattern": "/*",
+    "controller": "home",
+    "action": "index"
+  }
+}

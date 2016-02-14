@@ -51,7 +51,7 @@ class Router
 
         $this->app->coreLogger()->addInfo("Loading routes.");
         $routes = function_exists('get_object_vars') ?
-            get_object_vars(Config::get('routing')) :
+            get_object_vars(Config::get(Config::get($this->app->cfile)->paths->routing_file)) :
             $this->readJson($routes_file);
 
         foreach ($routes as $route_name => $route_settings) {

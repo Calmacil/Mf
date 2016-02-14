@@ -58,12 +58,12 @@ class Response
     public function __construct($app)
     {
         $this->app = $app;
-        $PATHS = Config::get("path");
+        $PATHS = Config::get($app->cfile)->debug;
 
         $this->loader = new \Twig_Loader_Filesystem(ROOT.$PATHS->templates);
         $this->environment = new \Twig_Environment($this->loader, array(
             "cache" => ROOT.$PATHS->twig_cache,
-            "debug" => Config::get('debug')
+            "debug" => Config::get($app->cfile)->debug
         ));
 
         // register custom functions
