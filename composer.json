@@ -17,5 +17,8 @@
     "psr-4": {
       "Mf\\": "src"
     }
+  },
+  "scripts": {
+    "post-install-cmd": "Calmacil\\Mf\\InstallScript::postInstall"
   }
 }
