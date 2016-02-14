@@ -15,6 +15,17 @@ class InstallScript
 {
     public static function postInstall(Event $event)
     {
-        echo "Ça marche mon gros roudoudou\n";
+        $dirs = array(
+            "cache",
+            "config",
+            "logs",
+            "templates",
+            "web",
+        );
+
+        foreach ($dirs as $dir) {
+            if (!file_exists($dir))
+                mkdir($dir, 0755);
+        }
     }
 }
