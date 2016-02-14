@@ -11,7 +11,6 @@
   "minimun-stability": "dev",
   "require": {
     "twig/twig": "~1.0",
-    "maximebf/debugbar": "1.*",
     "monolog/monolog": "1.*"
   },
   "autoload": {
