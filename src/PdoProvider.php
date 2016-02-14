@@ -70,7 +70,13 @@ class PdoProvider
      */
     protected function __construct($name, $options = array())
     {
-        $dsn = $this->buildDsn($name);
+        $this->host = Config::get('db')->{$name}->host ? : null;
+        $this->port = Config::get('db')->{$name}->port ? : null;
+        $this->dbname = Config::get('db')->{$name}->dbname ? : null;
+        $this->user = Config::get('db')->{$name}->user ? : null;
+        $this->password = Config::get('db')->{$name}->password ? : null;
+
+        $this->dsn = $this->buildDsn($name);
         $this->dbh = new \PDO($this->dsn, $this->user, $this->password, $options);
     }
 
@@ -106,5 +112,6 @@ class PdoProvider
             case self::DRIVER_SQLITE:
                 return "sqlite:" . $this->dbname;
         }
+        return false;
     }
 }
