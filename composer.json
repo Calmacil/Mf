@@ -1,6 +1,6 @@
 {
   "name": "calmacil/mf",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "authors": [
     {
       "name": "Calmacil",
@@ -19,6 +19,6 @@
     }
   },
   "scripts": {
-    "post-install-cmd": "Calmacil\\Mf\\InstallScript::postInstall"
+    "post-install-cmd": "Mf\\InstallScript::postInstall"
   }
 }
