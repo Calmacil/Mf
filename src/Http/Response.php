@@ -58,7 +58,7 @@ class Response
     public function __construct($app)
     {
         $this->app = $app;
-        $PATHS = Config::get($app->cfile)->debug;
+        $PATHS = Config::get($app->cfile)->paths;
 
         $this->loader = new \Twig_Loader_Filesystem(ROOT.$PATHS->templates);
         $this->environment = new \Twig_Environment($this->loader, array(
