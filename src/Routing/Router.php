@@ -43,12 +43,6 @@ class Router
 
     public function load($routes_file)
     {
-       /* if (!is_file($routes_file)) {
-            $this->app->coreLogger()->addCritical("The routing file {path} does not exist.",
-                array('path' => $routes_file));
-            throw new InvalidArgumentException("The given routes file does not exist");
-        }*/
-
         $this->app->coreLogger()->addInfo("Loading routes.");
         $routes = function_exists('get_object_vars') ?
             get_object_vars(Config::get(Config::get($this->app->cfile)->paths->routing_file)) :

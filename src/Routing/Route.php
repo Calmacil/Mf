@@ -57,12 +57,12 @@ class Route
         }
 
         $this->name = $name;
-        $this->pattern = $settings['pattern'];
-        $this->controller = $settings['controller'];
-        if (array_key_exists('params', $settings))
-            $this->params = $settings['params'];
-        if (array_key_exists('action', $settings))
-            $this->action = $settings['action'];
+        $this->pattern = $settings->pattern;
+        $this->controller = $settings->controller;
+        if (isset($settings->param))
+            $this->params = $settings->params;
+        if (isset($settings->action))
+            $this->action = $settings->action;
     }
 
     /**
