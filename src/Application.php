@@ -115,7 +115,7 @@ class Application
                 $msg = "Action $action_name does not exist in $controller_name.";
                 throw new \Exception($msg);
             }
-            if (($content_type = $this->controller->{$action_name}) === false) {
+            if (($content_type = $this->controller->{$action_name}()) === false) {
                 $msg = "Error executing the action. Good luck.";
                 throw new \Exception($msg);
             }
