@@ -15,6 +15,7 @@ use Mf\Routing\Router;
 use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
+use Monolog\Processor\PsrLogMessageProcessor;
 
 class Application
 {
@@ -71,12 +72,17 @@ class Application
             ROOT.Config::get($this->cfile)->log->logfile,
             10,
             Config::get($this->cfile)->log->loglevel);
+        $processor = new PsrLogMessageProcessor();
 
         $this->loggers['core'] = new Logger('core');
         $this->loggers['app'] = new Logger('app');
 
         $this->loggers['core']->pushHandler($rotateHandler);
         $this->loggers['app']->pushHandler($rotateHandler);
+
+        $this->loggers['core']->pushProcessor($processor);
+        $this->loggers['app']->pushProcessor($processor);
+
         if (Config::get($this->cfile)->debug) {
             $browserHandler = new BrowserConsoleHandler();
             $this->loggers['core']->pushHandler($browserHandler);
