@@ -67,7 +67,10 @@ class Application
         Config::init(ROOT . '/config/');
 
         // Loggers
-        $rotateHandler = new RotatingFileHandler(Config::get($this->cfile)->log->logfile,10, Config::get($this->cfile)->log->loglevel);
+        $rotateHandler = new RotatingFileHandler(
+            ROOT.Config::get($this->cfile)->log->logfile,
+            10,
+            onfig::get($this->cfile)->log->loglevel);
 
         $this->loggers['core'] = new Logger('core');
         $this->loggers['app'] = new Logger('app');
