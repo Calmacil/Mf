@@ -99,6 +99,10 @@ class Application
             $action_name = $this->request->getAction();
 
             $class = '\\' . ucfirst(Config::get($this->cfile)->project_name) . '\\' . $controller_name;
+            if (!class_exists($class)) {
+                $msg = "Controller $class does not exist in this application.";
+                throw new \Exception($msg);
+            }
             $this->controller = new $class($this);
 
             if (!method_exists($this->controller, $action_name)) {
