@@ -127,6 +127,7 @@ class Application
 <html lang="fr">
     <head>
         <title>Internal Server Error</title>
+        <meta charset="UTF-8"/>
     </head>
     <body>
         <h1>C’est dommage !</h1>
