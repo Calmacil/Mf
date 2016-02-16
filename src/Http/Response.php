@@ -60,7 +60,7 @@ class Response
         $this->app = $app;
         $PATHS = Config::get($app->cfile)->paths;
 
-        $this->loader = new \Twig_Loader_Filesystem(ROOT.$PATHS->templates);
+        $this->loader = new \Twig_Loader_Filesystem(ROOT.$PATHS->templates_dir);
         $this->environment = new \Twig_Environment($this->loader, array(
             "cache" => ROOT.$PATHS->twig_cache,
             "debug" => Config::get($app->cfile)->debug

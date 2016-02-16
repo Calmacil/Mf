@@ -8,7 +8,8 @@
   "paths": {
     "cache_dir": "cache",
     "twig_cache": "cache/twig",
-    "routing_file": "routing"
+    "routing_file": "routing",
+    "templates_dir": "templates"
   },
   "page404": null
 }
