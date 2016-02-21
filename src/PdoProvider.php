@@ -6,7 +6,7 @@
  * @licence MIT
  */
 
-namespace Mf;
+namespace Calma\Mf;
 
 
 class PdoProvider

@@ -6,18 +6,18 @@
  * @licence MIT
  */
 
-namespace Mf\Routing;
+namespace Calma\Mf\Routing;
 
 
-use Mf\Application;
-use Mf\Config;
+use Calma\Mf\Application;
+use Calma\Mf\Config;
 use Psr\Log\InvalidArgumentException;
 
 class Router
 {
     /**
      * Unique instance
-     * @var \Mf\Routing\Router
+     * @var \Calma\Mf\Routing\Router
      */
     private static $_instance;
 
@@ -129,7 +129,7 @@ class Router
      * Searches a matching route for the given uri
      *
      * @param string $uri
-     * @return bool|\Mf\Routing\Route
+     * @return bool|\Calma\Mf\Routing\Route
      */
     public function search($uri)
     {

@@ -1,6 +1,6 @@
 {
   "name": "calmacil/mf",
-  "version": "0.4.2",
+  "version": "0.4.2.0-dev",
   "authors": [
     {
       "name": "Calmacil",
@@ -15,7 +15,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Mf\\": "src"
+      "Calma\\Mf\\": "src"
     }
   }
 }

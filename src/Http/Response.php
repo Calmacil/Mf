@@ -6,12 +6,12 @@
  * @licence MIT
  */
 
-namespace Mf\Http;
+namespace Calma\Mf\Http;
 
 
-use Mf\Application;
-use Mf\Config;
-use Mf\Routing\Router;
+use Calma\Mf\Application;
+use Calma\Mf\Config;
+use Calma\Mf\Routing\Router;
 
 class Response
 {

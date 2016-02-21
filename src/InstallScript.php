@@ -6,7 +6,7 @@
  * This file is a part of the Mf project. All rights reserved.
  */
 
-namespace Mf;
+namespace Calma\Mf;
 
 
 use Composer\Script\Event;

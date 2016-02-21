@@ -6,12 +6,12 @@
  * @licence MIT
  */
 
-namespace Mf;
+namespace Calma\Mf;
 
 
-use Mf\Http\Request;
-use Mf\Http\Response;
-use Mf\Routing\Router;
+use Calma\Mf\Http\Request;
+use Calma\Mf\Http\Response;
+use Calma\Mf\Routing\Router;
 use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;

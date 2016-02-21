@@ -6,11 +6,11 @@
  * @licence MIT
  */
 
-namespace Mf\Http;
+namespace Calma\Mf\Http;
 
 
-use \Mf\Application;
-use \Mf\Routing\Router;
+use \Calma\Mf\Application;
+use \Calma\Mf\Routing\Router;
 use \Exception;
 
 class Request
@@ -21,7 +21,7 @@ class Request
     private $uri;
 
     /**
-     * @var \Mf\Routing\Route
+     * @var \Calma\Mf\Routing\Route
      */
     private $route;
 

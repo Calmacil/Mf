@@ -6,10 +6,10 @@
  * This file is a part of the Mf project. All rights reserved.
  */
 
-namespace Mf\Plugin;
+namespace Calma\Mf\Plugin;
 
 
-class PluginManager implements \ArrayAccess, \Iterator
+class PluginManager implements \ArrayAccess
 {
     /**
      * @var string
@@ -44,6 +44,7 @@ class PluginManager implements \ArrayAccess, \Iterator
     {
         if (is_a($value, '\\Mf\\Plugin\\PluginInterface')) {
             $this->plugins[$offset] = $value;
+            return true;
         }
         return false;
     }
@@ -57,29 +58,33 @@ class PluginManager implements \ArrayAccess, \Iterator
         return false;
     }
 
-    public function next()
+    private function iterate($is_a, $func)
     {
-        // TODO: Implement next() method.
+        foreach ($this->plugins as $plugin) {
+            if (is_a($plugin, $is_a)) {
+                $plugin->{$func}();
+            }
+        }
     }
 
-    public function valid()
+    public function start()
     {
-        // TODO: Implement valid() method.
+        $this->iterate('PluginStartInterface', 'start');
     }
 
-    public function current()
+    public function before()
     {
-        // TODO: Implement current() method.
+        $this->iterate('PluginBeforeInterface', 'before');
     }
 
-    public function rewind()
+    public function after()
     {
-        // TODO: Implement rewind() method.
+        $this->iterate('PluginAfterInterface', 'after');
     }
 
-    public function key()
+    public function end()
     {
-        // TODO: Implement key() method.
+        $this->iterate('PluginEndInterface', 'end');
     }
 
 }

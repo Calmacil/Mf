@@ -6,10 +6,10 @@
  * This file is a part of the Mf project. All rights reserved.
  */
 
-namespace Mf\Twig;
+namespace Calma\Mf\Twig;
 
 
-use Mf\Routing\Router;
+use Calma\Mf\Routing\Router;
 
 class Functions
 {

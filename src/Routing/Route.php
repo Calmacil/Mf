@@ -6,7 +6,7 @@
  * @licence MIT
  */
 
-namespace Mf\Routing;
+namespace Calma\Mf\Routing;
 
 
 use Psr\Log\InvalidArgumentException;

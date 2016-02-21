@@ -6,7 +6,7 @@
  * @licence MIT
  */
 
-namespace Mf;
+namespace Calma\Mf;
 
 
 use Psr\Log\InvalidArgumentException;
