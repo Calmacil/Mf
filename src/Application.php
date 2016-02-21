@@ -11,13 +11,14 @@ namespace Calma\Mf;
 
 use Calma\Mf\Http\Request;
 use Calma\Mf\Http\Response;
+use Calma\Mf\Plugin\PluginManager;
 use Calma\Mf\Routing\Router;
 use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 
-class Application
+class Application extends PluginManager
 {
     /**
      * @var Request
@@ -61,6 +62,7 @@ class Application
      */
     public function __construct($root, $env = 'prod')
     {
+        parent::__construct($root);
         define('ROOT', $root);
         $this->env = $env;
         $this->cfile = "settings_" . $this->env;
@@ -89,6 +91,7 @@ class Application
             $this->loggers['app']->pushHandler($browserHandler);
         }
 
+
         $this->router = Router::getInstance(ROOT . Config::get($this->cfile)->paths->routing_file, $this);
         $this->request = new Request($this, $_SERVER['REQUEST_URI']);
         $this->response = new Response($this);
@@ -101,6 +104,9 @@ class Application
         try {
             $this->request->proceed();
 
+            $this->coreLogger()->notice("Executing *start* actions");
+            $this->start();
+
             $controller_name = ucfirst($this->request->getController());
             $action_name = $this->request->getAction();
 
@@ -111,6 +117,9 @@ class Application
             }
             $this->controller = new $class($this);
 
+            $this->coreLogger()->notice("Executing *before* actions.");
+            $this->before();
+
             if (!method_exists($this->controller, $action_name)) {
                 $msg = "Action $action_name does not exist in $controller_name.";
                 throw new \Exception($msg);
@@ -120,8 +129,14 @@ class Application
                 throw new \Exception($msg);
             }
 
+            $this->coreLogger()->notice("Executing *after* actions.");
+            $this->after();
+
             $this->response->setTemplate($this->controller->getTemplate($action_name));
             $this->response->render($content_type);
+
+            $this->coreLogger()->notice("Executing *end* actions.");
+            $this->end();
 
         } catch (\Exception $e) {
             $this->coreLogger()->addCritical("Could not run the application correctly.\nReason: {reason}\nTrace: {trace}",
