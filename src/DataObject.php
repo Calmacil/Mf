@@ -11,15 +11,15 @@ namespace Calma\Mf;
 
 class DataObject implements \ArrayAccess
 {
-    private $data = array();
 
     /**
      * @param mixed $offset
      */
     public function offsetUnset($offset)
     {
-        if (isset($this->data[$offset]))
-            unset($this->data[$offset]);
+        if (!property_exists($this, "_$offset"))
+            throw new \OutOfBoundsException("Requested key does not exist.");
+        $this->{"_$offset"} = null;
     }
 
     /**
@@ -28,7 +28,9 @@ class DataObject implements \ArrayAccess
      */
     public function offsetSet($offset, $value)
     {
-        $this->data[$offset] = $value;
+        if (!property_exists($this, "_$offset"))
+            throw new \OutOfBoundsException("Requested key does not exist.");
+        $this->{"_$offset"} = $value;
     }
 
     /**
@@ -37,9 +39,9 @@ class DataObject implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        if (!isset($this->data[$offset]))
+        if (!property_exists($this, "_$offset"))
             throw new \OutOfBoundsException("Requested key does not exist");
-        return $this->data[$offset];
+        return $this->{"_$offset"};
     }
 
     /**
@@ -48,18 +50,19 @@ class DataObject implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return array_key_exists($offset, $this->data);
+        return property_exists($this, "_$offset");
     }
 
     public function __set($name, $value)
     {
-        $this->data[$name] = $value;
+        if (!property_exists($this, "_$name"))
+            throw new \OutOfBoundsException("Requested property does not exist");
     }
 
     public function __get($name)
     {
-        if (!isset($this->data[$name]))
-            throw new \OutOfBoundsException("Requested key does not exist");
-        return $this->data[$name];
+        if (!property_exists($this, "_$name"))
+            throw new \OutOfBoundsException("Requested property does not exist");
+        return $this->{"_$name"};
     }
 }
