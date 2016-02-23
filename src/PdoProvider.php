@@ -84,7 +84,7 @@ class PdoProvider
      * @param string $name
      * @return \PDO
      */
-    public function getConnector($name)
+    public static function getConnector($name)
     {
         if (!isset(self::$instances[$name]))
             self::$instances = new self($name);
