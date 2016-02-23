@@ -57,6 +57,7 @@ class DataObject implements \ArrayAccess
     {
         if (!property_exists($this, "_$name"))
             throw new \OutOfBoundsException("Requested property does not exist");
+        $this->{"_$name"} = $value;
     }
 
     public function __get($name)
