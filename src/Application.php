@@ -90,6 +90,11 @@ class Application extends PluginManager
             $this->loggers['core']->pushHandler($browserHandler);
             $this->loggers['app']->pushHandler($browserHandler);
         }
+        
+        // Session service handling
+        if (session_status() !== PHP_SESSION_DISABLED) {
+            $this["session"] = new SessionPlugin(&$this);
+        }
 
 
         $this->router = Router::getInstance(ROOT . Config::get($this->cfile)->paths->routing_file, $this);

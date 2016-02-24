@@ -16,7 +16,8 @@ interface PluginInterface
      *
      * Inits the plugin
      *
+     * @param Calma\Mf\Application $app
      * @param array|\stdClass $options
      */
-    public function __construct($options);
+    public function __construct(&$app, $options);
 }
