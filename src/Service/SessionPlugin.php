@@ -12,7 +12,7 @@ use Calma\Mf\Plugin\PluginInterface;
 use Calma\Mf\Plugin\PluginStartInterface;
 use Calma\Mf\Plugin\PluginEndInterface;
 
-class SessionPlugin implements PluginInterface, PluginStartInterface, PluginEndInterface
+class SessionPlugin implements PluginInterface
 {
     private $container = array();
  
@@ -26,18 +26,19 @@ class SessionPlugin implements PluginInterface, PluginStartInterface, PluginEndI
      */
     private $sess_name = 'MF_SESSION';
     
+    /**
+     * Session plugin constructor.
+     * 
+     * Inits the session if not already done and then tries to load and decrypt
+     *  stored session variables.
+     */
     public function __construct(&$app, $options=null)
     {
-         $this->app = $app;
-         if ($options && isset($options->session_name))
-             $this->sess_name = $options->session_name;
-    } 
-    
-    /**
-     * Called after the route's resolution but before the controller's being built.
-     */
-    public function start()
-    {
+        $this->app = $app;
+        if ($options && isset($options->session_name))
+            $this->sess_name = $options->session_name;
+        
+        
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -46,13 +47,13 @@ class SessionPlugin implements PluginInterface, PluginStartInterface, PluginEndI
         if (isset($_SESSION['MF_SESSION'])) {
             $this->container = unserialize(base64_decode($_SESSION['MF_SESSION']));
         }
-    }
+    } 
     
     /**
-     * Called after rendering
-     * Here we save the session after having encrypted it.
+     * Called at the end of the PHP session
+     * Stores all session variables after encryption
      */
-    public function end()
+    public function __destruct()
     {
         if ($this->container) {
             $_SESSION['MF_SESSION'] = base64_encode(serialize($this->container));
