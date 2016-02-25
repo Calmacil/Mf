@@ -11,6 +11,7 @@ namespace Calma\Mf;
 
 class DataObject implements \ArrayAccess
 {
+    protected $relations = array();
 
     /**
      * @param mixed $offset
@@ -56,14 +57,25 @@ class DataObject implements \ArrayAccess
     public function __set($name, $value)
     {
         if (!property_exists($this, "_$name"))
-            throw new \OutOfBoundsException("Requested property does not exist");
+            throw new \OutOfBoundsException("Property $name does not exist in " . __CLASS__ . ".");
         $this->{"_$name"} = $value;
     }
 
     public function __get($name)
     {
+        if (property_exists($this, "__".ucfirst($name))) {
+            $relation_name = "__" . ucfirst($name);
+            if (!$this->{$relation_name}) {
+                if (!array_key_exists(ucfirst($name), $this->relations))
+                    throw new \OutOfBoundsException("Relation $relation_name does not exist for " . __CLASS__ . ".");
+                $this->{$relation_name} = $this->{$this->relations[ucfirst($name)]};
+            }
+            return $this->{$relation_name};
+        }
+
         if (!property_exists($this, "_$name"))
-            throw new \OutOfBoundsException("Requested property does not exist");
+            throw new \OutOfBoundsException("Property $name does not exist in " . __CLASS__ . ".");
+
         return $this->{"_$name"};
     }
 }
