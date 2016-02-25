@@ -93,7 +93,7 @@ class Application extends PluginManager
         
         // Session service handling
         if (session_status() !== PHP_SESSION_DISABLED) {
-            $this["session"] = new SessionPlugin(&$this);
+            $this["session"] = new SessionPlugin($this);
         }
 
 
