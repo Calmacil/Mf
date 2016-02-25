@@ -13,6 +13,7 @@ use Calma\Mf\Http\Request;
 use Calma\Mf\Http\Response;
 use Calma\Mf\Plugin\PluginManager;
 use Calma\Mf\Routing\Router;
+use Calma\Mf\Service\SessionPlugin;
 use Monolog\Handler\BrowserConsoleHandler;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
