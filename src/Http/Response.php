@@ -17,6 +17,7 @@ class Response
 {
     const STATUS_OK = "200 OK";
     const STATUS_FOUND = "302 Found";
+    const STATUS_FORBIDDEN = "403 Forbidden";
     const STATUS_NOT_FOUND = "404 Not Found";
 
     const TYPE_HTML = "text/html";
@@ -139,16 +140,24 @@ class Response
         return true;
     }
 
-    public function display404($template = null)
+    /**
+     * Displays the 404 page. User should write a 404 template and set it in the config files.
+     *
+     * @param string $template
+     * @param string $ctype
+     * @return bool
+     */
+    public function display404($template = null, $c_type=self::TYPE_HTML)
     {
         if ($template) {
             $content = $this->environment->render($template);
+        }elseif (isset(Config::get($this->app->cfile)->page404) && ($tpl = Config::get($this->app->cfile)->page404)) {
+            $content = $this->environment->render($tpl);
         } else {
             $content = <<<EOC
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="Content-Type" content="text/html"/>
         <meta charset="utf-8"/>
         <title>Page not found!</title>
     </head>
@@ -157,12 +166,52 @@ class Response
     </body>
 </html>
 EOC;
-            ob_clean();
-            ob_start();
-            header("HTTP/1.1 " . self::STATUS_NOT_FOUND);
-            echo $content;
-            ob_end_flush();
-            return true;
         }
+
+        ob_clean();
+        ob_start();
+        header("HTTP/1.1 " . self::STATUS_NOT_FOUND);
+        header("Content-Type: " . $c_type);
+        echo $content;
+        ob_end_flush();
+        return true;
+    }
+
+
+    /**
+     * Displays the 403 page. User should write a 403 template and set it in the config file.
+     *
+     * @param string  $template
+     * @param string $c_type
+     * @return bool
+     */
+    public function display403($template = null, $c_type = self::TYPE_HTML)
+    {
+        if ($template) {
+            $content = $this->environment-$this->render($template);
+        } elseif (isset(Config::get($this->app->cfile)->page403) && ($tpl = Config::get($this->app->cfile)->page403)) {
+            $content = $this->environment->render($tpl);
+        } else {
+            $content = <<<EOC
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Forbidden area</title>
+    </head>
+    <body>
+        <p>You shall not pass!</p>
+    </body>
+</html>
+EOC;
+        }
+
+        ob_clean();
+        ob_start();
+        header("HTTP/1.1 . " . self::STATUS_FORBIDDEN);
+        header("Content-Type: " . $c_type);
+        echo $content;
+        ob_end_flush();
+        return true;
     }
 }
