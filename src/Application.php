@@ -202,4 +202,20 @@ EOT;
     {
         return $this->loggers['app'];
     }
+
+    /**
+     * @return Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
+    /**
+     * @return Controller
+     */
+    public function getController()
+    {
+        return $this->controller;
+    }
 }
