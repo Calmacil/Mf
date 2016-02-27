@@ -73,6 +73,8 @@ class Response
             $func = new \Twig_SimpleFunction($func_name, array("\\Mf\\Twig\\Functions", $func_name));
             $this->environment->addFunction($func);
         }
+        $this->environment->addGlobal('_APP_', $this->app); //thus you can use app and plugins functions
+
         $this->app->coreLogger()->notice('Response initialized.');
     }
 
