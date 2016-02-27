@@ -74,6 +74,17 @@ class Controller
     }
 
     /**
+     * Redirect to requested route
+     *
+     * @param $route
+     * @param null $params
+     */
+    protected function redirect($route, $params=null)
+    {
+        $this->app->getResponse()->redirect($route, $params);
+    }
+
+    /**
      * send a 404 http code
      * @return bool
      */
