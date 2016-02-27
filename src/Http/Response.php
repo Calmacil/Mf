@@ -70,7 +70,7 @@ class Response
         // register custom functions
         $function_names = get_class_methods("\\Calma\\Mf\\Twig\\Functions");
         foreach ($function_names as $func_name) {
-            $func = new \Twig_SimpleFunction($func_name, array("\\Mf\\Twig\\Functions", $func_name));
+            $func = new \Twig_SimpleFunction($func_name, array("\\Calma\\Mf\\Twig\\Functions", $func_name));
             $this->environment->addFunction($func);
         }
         $this->environment->addGlobal('_APP_', $this->app); //thus you can use app and plugins functions
