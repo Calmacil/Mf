@@ -31,28 +31,26 @@ class PluginManager implements \ArrayAccess
     }
 
     public function offsetExists($offset)
-    {$this->coreLogger()->info('Pouic');
+    {
         return array_key_exists($offset, $this->plugins);
     }
 
     public function offsetGet($offset)
-    {$this->coreLogger()->info('Pouet');
+    {
         return $this->plugins[$offset];
     }
 
     public function offsetSet($offset, $value)
-    {$this->coreLogger()->info('Plop');
-        if (is_a($value, '\\Mf\\Plugin\\PluginInterface')) {
-            $this->coreLogger()->info('This is a plugin!');
+    {
+        if ($value instanceof \Calma\Mf\Plugin\PluginInterface) {
             $this->plugins[$offset] = $value;
             return true;
         }
-        $this->coreLogger()->error('This is not a plugin!');
         return false;
     }
 
     public function offsetUnset($offset)
-    {$this->coreLogger()->info('Pwap');
+    {
         if (array_key_exists($offset, $this->plugins)) {
             unset($this->plugins[$offset]);
             return true;
