@@ -19,7 +19,7 @@ class PluginManager implements \ArrayAccess
     /**
      * @var array-of-PluginInterface
      */
-    private $plugins = array();
+    protected $plugins = array();
 
     /**
      * PluginManager constructor.
