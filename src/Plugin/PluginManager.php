@@ -43,9 +43,11 @@ class PluginManager implements \ArrayAccess
     public function offsetSet($offset, $value)
     {$this->coreLogger()->info('Plop');
         if (is_a($value, '\\Mf\\Plugin\\PluginInterface')) {
+            $this->coreLogger()->info('This is a plugin!');
             $this->plugins[$offset] = $value;
             return true;
         }
+        $this->coreLogger()->error('This is not a plugin!');
         return false;
     }
 
