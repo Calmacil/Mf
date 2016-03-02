@@ -176,7 +176,7 @@ EOC;
         header("Content-Type: " . $c_type);
         echo $content;
         ob_end_flush();
-        return true;
+        return $c_type;
     }
 
 
@@ -214,6 +214,6 @@ EOC;
         header("Content-Type: " . $c_type);
         echo $content;
         ob_end_flush();
-        return true;
+        return $c_type;
     }
 }
