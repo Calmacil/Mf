@@ -17,7 +17,7 @@ class SessionPlugin implements PluginInterface
     private $container = array();
  
     /**
-     * @var Calma\Mf\Application
+     * @var \Calma\Mf\Application
      */
     private $app;
     
@@ -78,5 +78,10 @@ class SessionPlugin implements PluginInterface
     public function set($key, $value)
     {
         $this->container[$key] = $value;
+    }
+
+    public function remove($key)
+    {
+        unset($this->container[$key]);
     }
 }
