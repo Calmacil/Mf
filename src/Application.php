@@ -138,8 +138,10 @@ class Application extends PluginManager
             $this->coreLogger()->notice("Executing *after* actions.");
             $this->after();
 
-            $this->response->setTemplate($this->controller->getTemplate($action_name));
-            $this->response->render($content_type);
+            if ($content_type != Response::TYPE_EXIT) {
+                $this->response->setTemplate($this->controller->getTemplate($action_name));
+                $this->response->render($content_type);
+            }
 
             $this->coreLogger()->notice("Executing *end* actions.");
             $this->end();

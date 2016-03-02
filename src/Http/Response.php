@@ -23,6 +23,8 @@ class Response
     const TYPE_HTML = "text/html";
     const TYPE_JSON = "text/json";
 
+    const TYPE_EXIT = "exit";
+
     /**
      * @var Application
      */
@@ -176,7 +178,7 @@ EOC;
         header("Content-Type: " . $c_type);
         echo $content;
         ob_end_flush();
-        return $c_type;
+        return self::TYPE_EXIT;
     }
 
 
@@ -214,6 +216,6 @@ EOC;
         header("Content-Type: " . $c_type);
         echo $content;
         ob_end_flush();
-        return $c_type;
+        return self::TYPE_EXIT;
     }
 }
