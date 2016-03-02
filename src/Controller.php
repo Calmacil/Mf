@@ -81,7 +81,7 @@ class Controller
      */
     protected function redirect($route, $params=null)
     {
-        $this->app->getResponse()->redirect($route, $params);
+        return $this->app->getResponse()->redirect($route, $params);
     }
 
     /**
