@@ -141,7 +141,7 @@ class Response
         header("HTTP/1.1 " . self::STATUS_FOUND);
         header("Location : " . $url);
         ob_end_flush();
-        return true;
+        return self::TYPE_EXIT;
     }
 
     /**
