@@ -139,7 +139,7 @@ class Response
         ob_clean();
         ob_start();
         header("HTTP/1.1 " . self::STATUS_FOUND);
-        header("Location : " . $url);
+        header("Location: " . $url);
         ob_end_flush();
         return self::TYPE_EXIT;
     }
