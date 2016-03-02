@@ -178,7 +178,9 @@ EOC;
         header("Content-Type: " . $c_type);
         echo $content;
         ob_end_flush();
-        return self::TYPE_EXIT;
+
+        $this->app->end();
+        exit;
     }
 
 
@@ -216,6 +218,8 @@ EOC;
         header("Content-Type: " . $c_type);
         echo $content;
         ob_end_flush();
-        return self::TYPE_EXIT;
+
+        $this->app->end();
+        exit;
     }
 }

@@ -110,7 +110,6 @@ class Application extends PluginManager
         try {
             $this->request->proceed();
 
-            $this->coreLogger()->notice("Executing *start* actions");
             $this->start();
 
             $controller_name = ucfirst($this->request->getController());
@@ -123,7 +122,6 @@ class Application extends PluginManager
             }
             $this->controller = new $class($this);
 
-            $this->coreLogger()->notice("Executing *before* actions.");
             $this->before();
 
             if (!method_exists($this->controller, $action_name)) {
@@ -135,7 +133,6 @@ class Application extends PluginManager
                 throw new \Exception($msg);
             }
 
-            $this->coreLogger()->notice("Executing *after* actions.");
             $this->after();
 
             $this->coreLogger()->debug('Value of $content-type: ' . $content_type);
@@ -145,7 +142,6 @@ class Application extends PluginManager
                 $this->response->render($content_type);
             }
 
-            $this->coreLogger()->notice("Executing *end* actions.");
             $this->end();
 
         } catch (\Exception $e) {

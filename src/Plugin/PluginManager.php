@@ -69,21 +69,25 @@ class PluginManager implements \ArrayAccess
 
     public function start()
     {
+        $this->coreLogger()->notice("Executing *start* actions");
         $this->iterate('PluginStartInterface', 'start');
     }
 
     public function before()
     {
+        $this->coreLogger()->notice("Executing *before* actions.");
         $this->iterate('PluginBeforeInterface', 'before');
     }
 
     public function after()
     {
+        $this->coreLogger()->notice("Executing *after* actions.");
         $this->iterate('PluginAfterInterface', 'after');
     }
 
     public function end()
     {
+        $this->coreLogger()->notice("Executing *end* actions.");
         $this->iterate('PluginEndInterface', 'end');
     }
 
