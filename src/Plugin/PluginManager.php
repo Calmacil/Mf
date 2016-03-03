@@ -79,7 +79,7 @@ class PluginManager implements \ArrayAccess
     public function before()
     {
         $this->coreLogger()->notice("Executing *before* actions.");
-        $this->iterate("\\Calma\\Mf\\Plugin\\PluginBeforeInterface", 'before');
+        $this->iterate(PluginBeforeInterface, 'before');
     }
 
     public function after()
