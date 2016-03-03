@@ -60,8 +60,8 @@ class PluginManager implements \ArrayAccess
 
     private function iterate($is_a, $func)
     {
-        foreach ($this->plugins as $plugin) {
-            if (is_a($plugin, $is_a)) {
+        foreach ($this->plugins as $pname => $plugin) {
+            if ($plugin instanceof $is_a) {
                 $plugin->{$func}();
             }
         }
