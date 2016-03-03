@@ -102,6 +102,7 @@ class Application extends PluginManager
         $this->request = new Request($this, $_SERVER['REQUEST_URI']);
         $this->response = new Response($this);
 
+        $this->coreLogger()->addNotice("============================================================");
         $this->coreLogger()->addNotice("Application initialized.");
     }
 
