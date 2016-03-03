@@ -62,7 +62,10 @@ class PluginManager implements \ArrayAccess
     {
         foreach ($this->plugins as $pname => $plugin) {
             if ($plugin instanceof $is_a) {
+                $this->coreLogger()->debug('Called {plugin}::{func}()', ['plugin' => $pname, 'func' => $func]);
                 $plugin->{$func}();
+            } else {
+                $this->coreLogger()->debug('{func} not called on {plugin}', ['plugin' => $pname, 'func' => $func]);
             }
         }
     }
