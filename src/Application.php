@@ -91,7 +91,9 @@ class Application extends PluginManager
             $this->loggers['core']->pushHandler($browserHandler);
             $this->loggers['app']->pushHandler($browserHandler);
         }
-        
+
+        $this->coreLogger()->addNotice("============================================================");
+
         // Session service handling
         if (session_status() !== PHP_SESSION_DISABLED) {
             $this["session"] = new SessionPlugin($this);
@@ -102,7 +104,7 @@ class Application extends PluginManager
         $this->request = new Request($this, $_SERVER['REQUEST_URI']);
         $this->response = new Response($this);
 
-        $this->coreLogger()->addNotice("============================================================");
+        $this->coreLogger()->addNotice("------------------------------------------------------------");
         $this->coreLogger()->addNotice("Application initialized.");
     }
 
