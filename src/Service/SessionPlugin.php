@@ -82,6 +82,6 @@ class SessionPlugin implements PluginInterface
 
     public function remove($key)
     {
-        unset($this->container[$key]);
+        $this->container[$key] = null;
     }
 }
