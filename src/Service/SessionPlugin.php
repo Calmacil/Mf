@@ -67,7 +67,7 @@ class SessionPlugin implements PluginInterface
      */
     public function get($key)
     {
-        return $this->container[$key];
+        return array_key_exists($key, $this->container) ? $this->container[$key] : false;
     }
     
     /**

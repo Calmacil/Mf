@@ -87,7 +87,7 @@ class PdoProvider
     public static function getConnector($name)
     {
         if (!isset(self::$instances[$name]))
-            self::$instances = new self($name);
+            self::$instances[$name] = new self($name);
         return self::$instances[$name]->getDbh();
     }
 
