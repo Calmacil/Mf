@@ -77,6 +77,11 @@ class PdoProvider
         $this->password = Config::get('db')->{$name}->password ? : null;
 
         $this->dsn = $this->buildDsn($name);
+
+        $options = array_merge($options, [\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION]);
+
+
+
         $this->dbh = new \PDO($this->dsn, $this->user, $this->password, $options);
     }
 
