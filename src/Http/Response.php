@@ -92,8 +92,7 @@ class Response
         $function_names = get_class_methods($classname);
         foreach ($function_names as $function_name) {
             $func = new \Twig_SimpleFunction($function_name,
-                $classname,
-                $function_name,
+                array($classname, $function_name),
                 array('needs_environment' => true));
             $this->environment->addFunction($func);
         }
