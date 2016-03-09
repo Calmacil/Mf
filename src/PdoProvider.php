@@ -109,7 +109,7 @@ class PdoProvider
         $this->driver = Config::get('db')->{$name}->driver;
         switch ($this->driver) {
             case self::DRIVER_MYSQL:
-                return "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname:" . $this->dbname;
+                return "mysql:host=" . $this->host . ";port=" . $this->port . ";dbname=" . $this->dbname;
             case self::DRIVER_SQLITE:
                 return "sqlite:" . $this->dbname;
         }
