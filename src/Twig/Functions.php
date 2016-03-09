@@ -18,8 +18,12 @@ class Functions
      * @param null $params
      * @return string
      */
-    public static function url(\Twig_Environment $env, $route_name, $params=null)
+    public static function url($env, $route_name, $params=null)
     {
+        var_dump($env);
+        var_dump($route_name);
+        var_dump($params);
+        return true;
         return Router::getInstance()->generateRoute($route_name, $params);
     }
 }
