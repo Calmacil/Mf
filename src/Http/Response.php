@@ -70,14 +70,53 @@ class Response
         ));
 
         // register custom functions
-        $function_names = get_class_methods("\\Calma\\Mf\\Twig\\Functions");
-        foreach ($function_names as $func_name) {
-            $func = new \Twig_SimpleFunction($func_name, array("\\Calma\\Mf\\Twig\\Functions", $func_name));
-            $this->environment->addFunction($func);
-        }
+        $this->registerFunctions('\Calma\Mf\Twig\Functions');
+
         $this->environment->addGlobal('_APP_', $this->app); //thus you can use app and plugins functions
 
         $this->app->coreLogger()->notice('Response initialized.');
+    }
+
+    /**
+     * Registers a function repository
+     *
+     * @param string $classname
+     * @throws \ErrorException
+     */
+    public function registerFunctions($classname)
+    {
+        if (!class_exists($classname)) {
+            throw new \ErrorException("Required class does not exist");
+        }
+
+        $function_names = get_class_methods($classname);
+        foreach ($function_names as $function_name) {
+            $func = new \Twig_SimpleFunction($function_name,
+                [$classname, $function_name],
+                ['needs_environment' => true]);
+            $this->environment->addFunction($func);
+        }
+    }
+
+    /**
+     * Registers a filters repository
+     *
+     * @param string $classname
+     * @throws \ErrorException
+     */
+    public function registerFilter($classname)
+    {
+        if (!class_exists($classname)) {
+            throw new \ErrorException("Required class does not exist.");
+        }
+
+        $filter_names = get_class_methods($classname);
+        foreach($filter_names as $filter_name) {
+            $filter = new \Twig_SimpleFilter($filter_name,
+                [$classname, $filter_name],
+                ['needs_environment' => true]);
+            $this->environment->addFilter($filter);
+        }
     }
 
     /**
