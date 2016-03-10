@@ -8,6 +8,8 @@
 
 namespace Calma\Mf\Twig;
 
+use Calma\Mf\Routing\Router;
+
 
 class CoreTwigExtension extends \Twig_Extension
 {
