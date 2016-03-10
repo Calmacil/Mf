@@ -12,6 +12,7 @@ namespace Calma\Mf\Http;
 use Calma\Mf\Application;
 use Calma\Mf\Config;
 use Calma\Mf\Routing\Router;
+use Calma\Mf\Twig\CoreTwigExtension;
 
 class Response
 {
@@ -70,7 +71,7 @@ class Response
         ));
 
         // register custom functions
-        $this->registerFunctions('\Calma\Mf\Twig\Functions');
+        $this->environment->addExtension(new CoreTwigExtension());
 
         $this->environment->addGlobal('_APP_', $this->app); //thus you can use app and plugins functions
 
@@ -117,6 +118,11 @@ class Response
                 array('needs_environment' => true));
             $this->environment->addFilter($filter);
         }
+    }
+
+    public function registerExtension($extension)
+    {
+        $this->environment->addExtension($extension);
     }
 
     /**
