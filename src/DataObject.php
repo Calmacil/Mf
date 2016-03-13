@@ -68,7 +68,9 @@ class DataObject implements \ArrayAccess
             if (!$this->{$relation_name}) {
                 if (!array_key_exists(ucfirst($name), $this->relations))
                     throw new \OutOfBoundsException("Relation $relation_name does not exist for " . __CLASS__ . ".");
-                $this->{$relation_name} = $this->{$this->relations[ucfirst($name)]}();
+                $result = $this->{$this->relations[ucfirst($name)]}();
+                var_dump($result);
+                $this->{$relation_name} = $result;
             }
             return $this->{$relation_name};
         }
