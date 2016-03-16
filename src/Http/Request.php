@@ -107,4 +107,9 @@ class Request
     {
         return $this->route->getAction();
     }
+
+    public function getRoute()
+    {
+        return $this->route;
+    }
 }

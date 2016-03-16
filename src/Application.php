@@ -221,4 +221,9 @@ EOT;
     {
         return $this->controller;
     }
+
+    public function currentRoute()
+    {
+        return $this->request->getRoute();
+    }
 }
