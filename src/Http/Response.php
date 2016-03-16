@@ -74,7 +74,6 @@ class Response
         $this->environment->addExtension(new CoreTwigExtension());
 
         $this->environment->addGlobal('_APP_', $this->app); //thus you can use app and plugins functions
-        $this->environment->addGlobal('_current_route', $this->app->getRequest()->getRoute()->getName());
 
         $this->app->coreLogger()->notice('Response initialized.');
     }
@@ -154,6 +153,7 @@ class Response
      */
     public function render($content_type = self::TYPE_HTML)
     {
+        $this->environment->addGlobal('_current_route', $this->app->getRequest()->getRoute()->getName());
         $content = $this->environment->render($this->template, $this->template_vars);
 
         $this->app->coreLogger()->notice("Rendering template {tpl} as {ctype} with code: [{code}]", [
