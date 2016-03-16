@@ -97,6 +97,15 @@ class Controller
     }
 
     /**
+     * @param $key
+     * @param $value
+     */
+    public function assign($key, $value)
+    {
+        $this->app->getResponse()->assign($key, $value);
+    }
+
+    /**
      * Detailed debug information
      *
      * @param string $msg
