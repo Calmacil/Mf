@@ -74,6 +74,7 @@ class Response
         $this->environment->addExtension(new CoreTwigExtension());
 
         $this->environment->addGlobal('_APP_', $this->app); //thus you can use app and plugins functions
+        $this->environment->addGlobal('_current_route', $this->app->getRequest()->getRoute()->getName());
 
         $this->app->coreLogger()->notice('Response initialized.');
     }
