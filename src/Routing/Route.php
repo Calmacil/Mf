@@ -137,7 +137,7 @@ class Route
     {
         $formatted_regex = $this->pattern;
         foreach ($this->params as $param => $format) {
-            $formatted_regex = str_replace(":$param:", $url, $formatted_regex);
+            $formatted_regex = str_replace(":$param:", "($format)", $formatted_regex);
         }
 
         if (!preg_match("#$formatted_regex#", $url, $matches)) {
