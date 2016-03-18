@@ -59,8 +59,11 @@ class Route
         $this->name = $name;
         $this->pattern = $settings->pattern;
         $this->controller = $settings->controller;
-        if (isset($settings->param))
-            $this->params = $settings->params;
+
+        // need Iterable object; array is ok
+        if (isset($settings->params))
+            $this->params = get_object_vars($settings->params);
+
         if (isset($settings->action))
             $this->action = $settings->action;
     }
