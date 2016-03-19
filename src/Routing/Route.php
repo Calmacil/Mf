@@ -104,9 +104,11 @@ class Route
      * @param $key
      * @return array
      */
-    public function getHttpParams()
+    public function getHttpParams($key=null)
     {
-        return $this->httpParams;
+        if ($key === false) return $this->httpParams;
+        if (!array_key_exists($key, $this->httpParams)) return false;
+        return $this->httpParams[$key];
     }
 
     /**
