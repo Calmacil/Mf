@@ -86,7 +86,7 @@ class Request
      */
     public function get($key)
     {
-        if (($val = $this->route->getHttpParams()) === false) {
+        if (($val = $this->route->getHttpParams($key)) === false) {
             $this->app->coreLogger()->warn("Parameter {key} not found in _GET request params.", ['key' => $key]);
         }
         return $val;
