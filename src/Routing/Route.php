@@ -149,7 +149,7 @@ class Route
         $par_pos = $this->computeParamPosition();
 
         foreach (array_keys($this->params) as $param) {
-            $this->httpParams[$param] = $matches[array_search($param, $par_pos)];
+            $this->httpParams[$param] = $matches[array_search($param, $par_pos) + 1];
         }
         return true;
     }
