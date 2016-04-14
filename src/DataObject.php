@@ -61,7 +61,7 @@ class DataObject implements \ArrayAccess
 
     public function __get($name)
     {
-        return $this->populateOrGetProperty($name;)
+        return $this->populateOrGetProperty($name);
     }
 
     private function populateOrGetProperty($name)
