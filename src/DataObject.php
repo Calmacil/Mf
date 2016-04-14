@@ -40,9 +40,7 @@ class DataObject implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        if (!property_exists($this, "_$offset"))
-            throw new \OutOfBoundsException("Requested key does not exist");
-        return $this->{"_$offset"};
+        return $this->populateOrGetProperty($offset);
     }
 
     /**
@@ -51,7 +49,7 @@ class DataObject implements \ArrayAccess
      */
     public function offsetExists($offset)
     {
-        return property_exists($this, "_$offset");
+        return property_exists($this, "_$offset") || property_exists($this, "__$offset");
     }
 
     public function __set($name, $value)
@@ -62,6 +60,11 @@ class DataObject implements \ArrayAccess
     }
 
     public function __get($name)
+    {
+        return $this->populateOrGetProperty($name;)
+    }
+
+    private function populateOrGetProperty($name)
     {
         if (property_exists($this, "__".ucfirst($name))) {
             $relation_name = "__" . ucfirst($name);
